@@ -20,4 +20,8 @@ class LoginController extends ControllerMVC {
   login(context) {
     Navigator.pushReplacementNamed(context, '/onboarding');
   }
+
+  singup(context) {
+    Navigator.pushReplacementNamed(context, '/singup');
+  }
 }

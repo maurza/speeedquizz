@@ -7,7 +7,7 @@ class EmailInput extends StatelessWidget {
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          labelText: 'Email'.toUpperCase(),
+          labelText: 'Correo'.toUpperCase(),
         ),
       ),
     );

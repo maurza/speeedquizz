@@ -107,6 +107,7 @@ class _LoginPageState extends StateMVC<LoginPage> {
                                 buttonColor: Hexcolor('#E4907A'),
                                 buttonText: 'Sing Up',
                                 onClick: () {
+                                  controller.singup(context);
                                   print('My button');
                                 }),
                           ),
