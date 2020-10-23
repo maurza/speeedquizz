@@ -13,6 +13,8 @@ dependencies:
   mvc_pattern: ^6.4.0
   hexcolor: ^1.0.4
   percent_indicator: ^2.1.7+4
+  http: any
+  
 
   
 

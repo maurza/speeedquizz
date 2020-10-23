@@ -9,6 +9,8 @@ import 'package:speedquizz/widgets/buttons/rounder-button.dart';
 import 'package:speedquizz/widgets/inputs/email-input.dart';
 import 'package:speedquizz/widgets/inputs/password-input.dart';
 
+import '../../widgets/inputs/email-input.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -24,6 +26,7 @@ class _LoginPageState extends StateMVC<LoginPage> {
   @override
   Widget build(BuildContext context) {
     bool isKeyboardClose = (MediaQuery.of(context).viewInsets.bottom == 0.0);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -67,8 +70,9 @@ class _LoginPageState extends StateMVC<LoginPage> {
                             fontSize: dimens.fullWidth(context) * .045,
                             color: colores.gris),
                       ),
-                      EmailInput(),
-                      PasswordInput(),
+                      EmailInput(emailController: controller.emailController),
+                      PasswordInput(
+                          passwordController: controller.passwordController),
                       Container(
                         alignment: Alignment.bottomRight,
                         margin: dimens.top(context, .01),
@@ -80,6 +84,14 @@ class _LoginPageState extends StateMVC<LoginPage> {
                               fontWeight: FontWeight.w700),
                         ),
                       ),
+                      Visibility(
+                          visible: controller.failedAutentication,
+                          child: Text(
+                            'Password or Email FAILED!',
+                            style: TextStyle(
+                                fontSize: dimens.fullWidth(context) * .045,
+                                color: Colors.red),
+                          )),
                       RounderButton(
                           buttonBorderColor:
                               Hexcolor('#94D9D4').withOpacity(0.7),
