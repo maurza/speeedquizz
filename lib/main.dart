@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speedquizz/src/login/login-page.dart';
 import 'package:speedquizz/src/onboarding/onboarding-page.dart';
+import 'package:speedquizz/src/singup/singup-page.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => LoginPage(),
-        '/onboarding': (context) => OnboardingPage()
+        '/onboarding': (context) => OnboardingPage(),
+        '/singup': (context) => SingupPage()
       },
       initialRoute: '/',
     );

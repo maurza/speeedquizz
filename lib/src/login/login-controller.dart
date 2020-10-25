@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
 
 class LoginController extends ControllerMVC {
@@ -15,16 +14,23 @@ class LoginController extends ControllerMVC {
 
   static LoginController get con => _this;
 
-///// Metodos de aca een adelanteeeeeee
+  ///// Metodos de aca een adelanteeeeeee
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  List data;
+  List data = [];
   bool failedAutentication = false;
   login(context) async {
-    http.Response response =
-        await http.get('http://10.0.2.2:3000/' + emailController.text);
-    data = json.decode(response.body);
+    if (emailController.text.isEmpty) {
+      setState(() {
+        failedAutentication = true;
+      });
+    } else {
+      http.Response response = await http.get(
+          'https://speedquiz-services.herokuapp.com/' + emailController.text);
+      data = json.decode(response.body);
+    }
+
     if (data.length == 1) {
       if (passwordController.text == data[0]['password']) {
         Navigator.pushReplacementNamed(context, '/onboarding');
@@ -38,6 +44,10 @@ class LoginController extends ControllerMVC {
         failedAutentication = true;
       });
     }
+  }
+
+  singup(context) {
+    Navigator.pushReplacementNamed(context, '/singup');
   }
 
   String saludo = "Hola";

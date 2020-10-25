@@ -12,7 +12,7 @@ class PasswordInput extends StatelessWidget {
         keyboardType: TextInputType.text,
         obscureText: true,
         decoration: InputDecoration(
-          labelText: 'Password'.toUpperCase(),
+          labelText: 'Contraseña'.toUpperCase(),
         ),
       ),
     );

@@ -99,33 +99,20 @@ class _LoginPageState extends StateMVC<LoginPage> {
                           buttonText: 'Log In',
                           onClick: () {
                             controller.login(context);
+
                             print('My button');
                           }),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: dimens.fullWidth(context) * 0.2,
-                            height: dimens.fullWidth(context) * 0.2,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: ExactAssetImage(paths.logoGoogle))),
-                          ),
-                          Container(
-                            width: dimens.fullWidth(context) * .6,
-                            child: RounderButton(
-                                buttonBorderColor:
-                                    Hexcolor('#E4907A').withOpacity(0.7),
-                                buttonColor: Hexcolor('#E4907A'),
-                                buttonText: 'Sing Up',
-                                onClick: () {
-                                  print('My button');
-                                }),
-                          ),
-                        ],
-                      )
+                      RounderButton(
+                          buttonBorderColor:
+                              Hexcolor('#E4907A').withOpacity(0.7),
+                          buttonColor: Hexcolor('#E4907A'),
+                          buttonText: 'Sing Up',
+                          onClick: () {
+                            controller.singup(context);
+                            print('My button');
+                          }),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),

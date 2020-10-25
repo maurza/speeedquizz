@@ -12,7 +12,7 @@ class EmailInput extends StatelessWidget {
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          labelText: 'Email'.toUpperCase(),
+          labelText: 'Correo'.toUpperCase(),
         ),
       ),
     );
