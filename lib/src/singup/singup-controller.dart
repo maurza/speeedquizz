@@ -87,7 +87,8 @@ class SingupController extends ControllerMVC {
     if (tycAcepted) {
       if (formKey.currentState.validate()) {
         createClassUser();
-        goToWelcome();
+        singup(context);
+
         //singup(context);
       }
     } else {
@@ -110,7 +111,7 @@ class SingupController extends ControllerMVC {
       "correo": emailController.text,
       "institucion": institucionController.text,
       "carrera": carreraController.text,
-      "fechaNacimiento": "1992-02-20",
+      "fechaNacimiento": bornDate.toString(),
       "contrasena": passwordController.text
     });
     setState(() {});
