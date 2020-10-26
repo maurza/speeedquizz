@@ -14,6 +14,8 @@ dependencies:
   hexcolor: ^1.0.4
   percent_indicator: ^2.1.7+4
   http: any
+  flutter_datetime_picker: ^1.4.0
+  intl:
 
   
 

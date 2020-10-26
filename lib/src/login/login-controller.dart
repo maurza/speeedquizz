@@ -47,7 +47,7 @@ class LoginController extends ControllerMVC {
   }
 
   singup(context) {
-    Navigator.pushReplacementNamed(context, '/singup');
+    Navigator.pushNamed(context, '/singup');
   }
 
   String saludo = "Hola";

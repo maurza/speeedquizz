@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speedquizz/extras/validators.dart';
 
 class PasswordInput extends StatelessWidget {
   final TextEditingController passwordController;
@@ -8,6 +9,7 @@ class PasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        validator: validators.validatePassword,
         controller: passwordController,
         keyboardType: TextInputType.text,
         obscureText: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speedquizz/extras/validators.dart';
 
 class EmailInput extends StatelessWidget {
   final TextEditingController emailController;
@@ -10,6 +11,7 @@ class EmailInput extends StatelessWidget {
     return Container(
       child: TextFormField(
         controller: emailController,
+        validator: validators.validateEmail,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           labelText: 'Correo'.toUpperCase(),

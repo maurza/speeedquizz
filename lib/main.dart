@@ -3,8 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:speedquizz/src/login/login-page.dart';
 import 'package:speedquizz/src/onboarding/onboarding-page.dart';
 import 'package:speedquizz/src/singup/singup-page.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:speedquizz/src/welcome/welcome-page.dart';
 
 void main() {
+  /// esta configuracion sirve para mostrar las fechas en diferentes lenguajes
+  initializeDateFormatting('es', null);
   runApp(MyApp());
 }
 
@@ -27,7 +31,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/onboarding': (context) => OnboardingPage(),
-        '/singup': (context) => SingupPage()
+        '/singup': (context) => SingupPage(),
+        '/welcome': (context) => WelcomePage()
       },
       initialRoute: '/',
     );
