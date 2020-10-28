@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:speedquizz/providers/user-provider.dart';
+import 'package:speedquizz/src/lobby/lobby-page.dart';
 import 'package:speedquizz/src/login/login-page.dart';
 import 'package:speedquizz/src/onboarding/onboarding-page.dart';
+import 'package:speedquizz/src/perfil/perfil-page.dart';
 import 'package:speedquizz/src/singup/singup-page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:speedquizz/src/welcome/welcome-page.dart';
@@ -21,20 +25,27 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: 'Quicksand',
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          fontFamily: 'Quicksand',
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        routes: {
+          '/': (context) => LoginPage(),
+          '/onboarding': (context) => OnboardingPage(),
+          '/singup': (context) => SingupPage(),
+          '/welcome': (context) => WelcomePage(),
+          LobbyPage.route: (context) => LobbyPage(),
+          PerfilPage.route: (context) => PerfilPage()
+        },
+        initialRoute: '/',
       ),
-      routes: {
-        '/': (context) => LoginPage(),
-        '/onboarding': (context) => OnboardingPage(),
-        '/singup': (context) => SingupPage(),
-        '/welcome': (context) => WelcomePage()
-      },
-      initialRoute: '/',
     );
   }
 }

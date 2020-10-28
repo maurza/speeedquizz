@@ -22,7 +22,6 @@ class _LoginPageState extends StateMVC<LoginPage> {
   }
 
   LoginController controller;
-
   @override
   Widget build(BuildContext context) {
     bool isKeyboardClose = (MediaQuery.of(context).viewInsets.bottom == 0.0);
@@ -77,7 +76,7 @@ class _LoginPageState extends StateMVC<LoginPage> {
                         alignment: Alignment.bottomRight,
                         margin: dimens.top(context, .01),
                         child: Text(
-                          'Forgot your password?'.toUpperCase(),
+                          'Olvidaste la contraseña?'.toUpperCase(),
                           style: TextStyle(
                               fontSize: dimens.fullWidth(context) * .04,
                               color: colores.azul,
@@ -87,7 +86,7 @@ class _LoginPageState extends StateMVC<LoginPage> {
                       Visibility(
                           visible: controller.failedAutentication,
                           child: Text(
-                            'Password or Email FAILED!',
+                            'Email o Contraseña incorrecta!',
                             style: TextStyle(
                                 fontSize: dimens.fullWidth(context) * .045,
                                 color: Colors.red),
@@ -96,7 +95,7 @@ class _LoginPageState extends StateMVC<LoginPage> {
                           buttonBorderColor:
                               Hexcolor('#94D9D4').withOpacity(0.7),
                           buttonColor: Hexcolor('#94D9D4'),
-                          buttonText: 'Log In',
+                          buttonText: 'Ingresar',
                           onClick: () {
                             controller.login(context);
 
@@ -106,11 +105,12 @@ class _LoginPageState extends StateMVC<LoginPage> {
                           buttonBorderColor:
                               Hexcolor('#E4907A').withOpacity(0.7),
                           buttonColor: Hexcolor('#E4907A'),
-                          buttonText: 'Sing Up',
+                          buttonText: 'Registrarse',
                           onClick: () {
                             controller.singup(context);
                             print('My button');
-                          }),
+                          })
+                      //controller.signInButton()
                     ],
                   )
                 ],

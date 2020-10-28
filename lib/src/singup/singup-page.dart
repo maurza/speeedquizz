@@ -72,7 +72,7 @@ class _SingupPageState extends StateMVC<SingupPage> {
                       children: [
                         TextInput(
                           textController: controller.nickNameController,
-                          labelText: 'Nickname',
+                          labelText: 'Apodo',
                         ),
                         TextInput(
                           textController: controller.nombreController,

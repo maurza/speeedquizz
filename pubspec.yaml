@@ -16,6 +16,8 @@ dependencies:
   http: any
   flutter_datetime_picker: ^1.4.0
   intl:
+  google_sign_in: ^4.5.5
+  provider: 
 
   
 

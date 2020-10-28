@@ -25,7 +25,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
     /// de la vista anteriior
     User user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: AppBar(title: Text('Bienvenido! ' + user.nickName)),
+      appBar: AppBar(title: Text('Bienvenido! ' + user.nickname)),
       body: Container(
         padding: dimens.all(context, .05),
         child: Column(
@@ -36,7 +36,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
               style: styles.large(context),
             ),
             Text(
-              'Nickname: ' + user.nickName,
+              'Nickname: ' + user.nickname,
               style: styles.large(context),
             ),
             Text(
