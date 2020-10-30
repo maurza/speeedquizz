@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:speedquizz/extras/colores.dart';
 import 'package:speedquizz/extras/dimens.dart';
 import 'package:speedquizz/extras/paths.dart';
 import 'package:speedquizz/src/singup/singup-controller.dart';

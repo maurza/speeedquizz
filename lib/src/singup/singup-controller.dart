@@ -49,8 +49,6 @@ class SingupController extends ControllerMVC {
   String saludo = "Hola";
 
   singup(context) async {
-    print(nickNameController.text);
-
     final String apiUrl = "https://speedquiz-services.herokuapp.com/agregar";
 
     Map<String, String> requestHeaders = {
@@ -59,8 +57,6 @@ class SingupController extends ControllerMVC {
     };
 
     /// TODO:  para volver los json una entidad
-    /// recomiendo la pagina
-    /// https://javiercbk.github.io/json_to_dart/
     final msg = jsonEncode(user.toJson());
 
     final response =
