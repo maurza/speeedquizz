@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/widgets/layouts/multi-select.dart';
+import '../../extras/colores.dart';
 import './quizz-controller.dart';
 
 class QuizzPage extends StatefulWidget {
@@ -24,15 +25,18 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
     Pregunta pregunta = args["pregunta"];
 
     return Scaffold(
+      backgroundColor: colores.azul,
       appBar: AppBar(title: Text(controller.pageName)),
       body: Container(
-        child: type == "3"
-            ? MultiSelect(
-                pregunta: pregunta,
-              )
-            : Center(
+        child: /*type == "2"
+            ?*/
+            MultiSelect(
+          pregunta: pregunta,
+        )
+        /*: Center(
                 child: Text(controller.pageName + ""),
-              ),
+              )*/
+        ,
       ),
     );
   }

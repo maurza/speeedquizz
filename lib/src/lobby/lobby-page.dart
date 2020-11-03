@@ -43,13 +43,14 @@ class _LobbyPageState extends StateMVC<LobbyPage> {
                   onPressed: () {
                     /*Navigator.pushNamed(context, QuizzPage.route,
                         arguments: {"type": "FalsoVerdadero"});*/
+                    controller.obtenerDatosPregunta("3");
                   },
                   child: Text("Ir a Falso y verdadero")),
               FlatButton(
                   onPressed: () {
                     /*Navigator.pushNamed(context, QuizzPage.route,
                         arguments: {"type": "MultiSelect"});*/
-                    controller.obtenerDatosPregunta("3");
+                    controller.obtenerDatosPregunta("2");
                   },
                   child: Text("Ir a Seleccion Multiple Unica Respuesta"))
             ],
