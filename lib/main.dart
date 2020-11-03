@@ -6,6 +6,7 @@ import 'package:speedquizz/src/lobby/lobby-page.dart';
 import 'package:speedquizz/src/login/login-page.dart';
 import 'package:speedquizz/src/onboarding/onboarding-page.dart';
 import 'package:speedquizz/src/perfil/perfil-page.dart';
+import 'package:speedquizz/src/quizz/quizz-page.dart';
 import 'package:speedquizz/src/singup/singup-page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:speedquizz/src/welcome/welcome-page.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
           '/singup': (context) => SingupPage(),
           '/welcome': (context) => WelcomePage(),
           LobbyPage.route: (context) => LobbyPage(),
-          PerfilPage.route: (context) => PerfilPage()
+          PerfilPage.route: (context) => PerfilPage(),
+          QuizzPage.route: (context) => QuizzPage()
         },
         initialRoute: '/',
       ),
