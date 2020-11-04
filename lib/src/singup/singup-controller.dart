@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
@@ -59,6 +58,8 @@ class SingupController extends ControllerMVC {
     /// TODO:  para volver los json una entidad
     final msg = jsonEncode(user.toJson());
 
+    print(msg);
+
     final response =
         await http.post(apiUrl, headers: requestHeaders, body: msg);
     print(response.body);
@@ -84,8 +85,6 @@ class SingupController extends ControllerMVC {
       if (formKey.currentState.validate()) {
         createClassUser();
         singup(context);
-
-        //singup(context);
       }
     } else {
       showTyCDialog();
@@ -103,12 +102,12 @@ class SingupController extends ControllerMVC {
   createClassUser() {
     user = User.fromJson({
       "nombre": nombreController.text,
-      "nickName": nickNameController.text,
+      "nickname": nickNameController.text,
       "correo": emailController.text,
       "institucion": institucionController.text,
       "carrera": carreraController.text,
-      "fechaNacimiento": bornDate.toString(),
-      "contrasena": passwordController.text
+      "fecha_nacimiento": bornDate.toString(),
+      "password": passwordController.text
     });
     setState(() {});
   }

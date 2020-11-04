@@ -36,7 +36,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
               style: styles.large(context),
             ),
             Text(
-              'Nickname: ' + user.nickname,
+              'nickName: ' + user.nickname,
               style: styles.large(context),
             ),
             Text(
@@ -44,7 +44,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
               style: styles.large(context),
             ),
             Text(
-              'Fnac: ' + user.fechaNacimiento,
+              'Fnac: ' + user.fecha_nacimiento,
               style: styles.large(context),
             ),
             Text(

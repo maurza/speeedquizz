@@ -5,7 +5,7 @@ class User {
   String nickname;
   String correo;
   String password;
-  String fechaNacimiento;
+  String fecha_nacimiento;
   String icono;
   num puntuacion;
   String institucion;
@@ -20,7 +20,7 @@ class User {
       this.nickname,
       this.correo,
       this.password,
-      this.fechaNacimiento,
+      this.fecha_nacimiento,
       this.icono,
       this.puntuacion,
       this.institucion,
@@ -35,7 +35,7 @@ class User {
     nickname = json['nickname'] ?? '';
     correo = json['correo'] ?? '';
     password = json['password'] ?? '';
-    fechaNacimiento = json['fecha_nacimiento'] ?? '';
+    fecha_nacimiento = json['fecha_nacimiento'] ?? '';
     icono = json['icono'] ?? '';
     puntuacion = json['puntuacion'] ?? 0;
     institucion = json['institucion'] ?? '';
@@ -52,7 +52,7 @@ class User {
     data['nickname'] = this.nickname;
     data['correo'] = this.correo;
     data['password'] = this.password;
-    data['fecha_nacimiento'] = this.fechaNacimiento;
+    data['fecha_nacimiento'] = this.fecha_nacimiento;
     data['icono'] = this.icono;
     data['puntuacion'] = this.puntuacion;
     data['institucion'] = this.institucion;

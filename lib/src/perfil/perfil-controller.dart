@@ -76,9 +76,9 @@ class PerfilController extends ControllerMVC {
 
     final jasonReq = {
       "nombre": nombreController.text,
-      "nickName": nickNameController.text,
+      "nickname": nickNameController.text,
       "correo": emailControllers.text,
-      "fechaNacimiento": bornDate.toString(),
+      "fecha_nacimiento": bornDate.toString(),
       "institucion": institucionController.text,
       "carrera": carreraController.text
     };
@@ -87,7 +87,7 @@ class PerfilController extends ControllerMVC {
       "nombre": nombreController.text,
       "nickname": nickNameController.text,
       "correo": emailControllers.text,
-      "fechaNacimiento": bornDate.toString(),
+      "fecha_nacimiento": bornDate.toString(),
       "institucion": institucionController.text,
       "carrera": carreraController.text,
       "idUsuario:": user.idUsuario,
@@ -100,6 +100,7 @@ class PerfilController extends ControllerMVC {
     };
 
     final msg = jsonEncode(jasonReq);
+    print(msg);
 
     final response = await http.put(apiUrl, headers: requestHeaders, body: msg);
 
