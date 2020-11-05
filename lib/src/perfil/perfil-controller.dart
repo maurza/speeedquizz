@@ -23,7 +23,6 @@ class PerfilController extends ControllerMVC {
   String pageName = 'Editar Perfil';
 
   BuildContext context;
-  DateTime bornDate;
 
   User user;
 
@@ -52,6 +51,8 @@ class PerfilController extends ControllerMVC {
   TextEditingController nickNameController = TextEditingController();
   TextEditingController nombreController = TextEditingController();
 
+  DateTime bornDate;
+
   onDateAccept(DateTime dateTime) {
     bornDate = dateTime;
     setState(() {});
@@ -74,20 +75,28 @@ class PerfilController extends ControllerMVC {
       'Accept': 'application/json'
     };
 
+    String fechaActualizar = bornDate.toString();
+    if (bornDate.toString() == "null") {
+      fechaActualizar = user.fecha_nacimiento;
+    }
+    print(fechaActualizar);
+
+    //Datos para consumir el servicio PUT
     final jasonReq = {
       "nombre": nombreController.text,
       "nickname": nickNameController.text,
       "correo": emailControllers.text,
-      "fecha_nacimiento": bornDate.toString(),
+      "fecha_nacimiento": fechaActualizar.toString(),
       "institucion": institucionController.text,
       "carrera": carreraController.text
     };
 
+    //Usuario para actualizar el provider
     final userInsert = {
       "nombre": nombreController.text,
       "nickname": nickNameController.text,
       "correo": emailControllers.text,
-      "fecha_nacimiento": bornDate.toString(),
+      "fecha_nacimiento": fechaActualizar.toString(),
       "institucion": institucionController.text,
       "carrera": carreraController.text,
       "idUsuario:": user.idUsuario,
@@ -111,15 +120,29 @@ class PerfilController extends ControllerMVC {
           User.fromJson(userInsert);
       Navigator.pushReplacementNamed(context, LobbyPage.route);
     } else {
-      showTyCDialog();
+      showTyCDialog("No se pudieron Actualizar Revisa los campos");
     }
   }
 
-  showTyCDialog() {
+  validateform(context) {
+    if (formKey.currentState.validate()) {
+      if (nickNameController.text != "" &&
+          emailControllers.text != "" &&
+          nombreController.text != "") {
+        actualizarInfo();
+      } else {
+        showTyCDialog("Faltan campos obligatorios por Rellenar");
+      }
+    } else {
+      showTyCDialog("No se pudieron Actualizar Revisa los campos");
+    }
+  }
+
+  showTyCDialog(String texto) {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-              content: Text("Verifique todos los campos"),
+              content: Text(texto),
               actions: <Widget>[
                 FlatButton(
                   child: Text('Aceptar'),

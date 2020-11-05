@@ -27,12 +27,11 @@ class SingupController extends ControllerMVC {
   }
 
 ///// Metodos de aca een adelanteeeeeee
-  ///
-  ///
-  ///
+
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordController1 = TextEditingController();
   TextEditingController carreraController = TextEditingController();
   TextEditingController institucionController = TextEditingController();
   TextEditingController nickNameController = TextEditingController();
@@ -55,21 +54,27 @@ class SingupController extends ControllerMVC {
       'Accept': 'application/json'
     };
 
-    /// TODO:  para volver los json una entidad
-    final msg = jsonEncode(user.toJson());
+    if (nombreController.text != "" &&
+        nickNameController.text != "" &&
+        emailController.text != "") {
+      final msg = jsonEncode(user.toJson());
 
-    print(msg);
+      print(msg);
 
-    final response =
-        await http.post(apiUrl, headers: requestHeaders, body: msg);
-    print(response.body);
+      final response =
+          await http.post(apiUrl, headers: requestHeaders, body: msg);
 
-    if (json.decode(response.body) == "respusido") {
-      goToWelcome();
+      print(response.body);
+
+      if (json.decode(response.body) == "respusido") {
+        goToWelcome();
+      } else {
+        setState(() {
+          failedRegistro = true;
+        });
+      }
     } else {
-      setState(() {
-        failedRegistro = true;
-      });
+      showCamposDialog("Ingrese los campos que son obligatorios");
     }
   }
 
@@ -83,11 +88,16 @@ class SingupController extends ControllerMVC {
     ///de lo contrrario se muestra un mensaje
     if (tycAcepted) {
       if (formKey.currentState.validate()) {
-        createClassUser();
-        singup(context);
+        if (passwordController.text == passwordController1.text) {
+          createClassUser();
+          singup(context);
+        } else {
+          showCamposDialog("Las contraseñas deben coincidir");
+        }
       }
     } else {
-      showTyCDialog();
+      showCamposDialog(
+          "Para registrarse por favor aceptar terminos y condiciones");
     }
   }
 
@@ -134,13 +144,13 @@ class SingupController extends ControllerMVC {
     setState(() {});
   }
 
-  /// Si no han aceptado los terminos y condicciones no pueden avanzar
-  showTyCDialog() {
+  /// Si no han aceptado los terminos y condicciones no pueden avanzar y si tiene campos nulos
+
+  showCamposDialog(String mensaje) {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-              content: Text(
-                  "Para registrarse por favor aceptar terminos y condiciones"),
+              content: Text(mensaje),
               actions: <Widget>[
                 FlatButton(
                   child: Text('Aceptar'),

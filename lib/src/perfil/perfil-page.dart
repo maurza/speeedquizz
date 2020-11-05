@@ -65,16 +65,18 @@ class _PerfilPageState extends StateMVC<PerfilPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        Text("Todos los datos marcados con * son obligatorios"),
                         TextInput(
                           textController: controller.nickNameController,
-                          labelText: 'Apodo',
+                          labelText: 'Apodo *',
                         ),
                         TextInput(
                           textController: controller.nombreController,
-                          labelText: 'Nombre',
+                          labelText: 'Nombre *',
                         ),
                         EmailInput(
-                            emailController: controller.emailControllers),
+                            emailController: controller.emailControllers,
+                            labelText: 'Correo *'),
                         FechaInput(
                           onConfirm: controller.onDateAccept,
                           value: controller.fechaInputValue(),
@@ -101,7 +103,7 @@ class _PerfilPageState extends StateMVC<PerfilPage> {
                             buttonColor: Hexcolor('#E4907A'),
                             buttonText: 'Actualizar',
                             onClick: () {
-                              controller.actualizarInfo();
+                              controller.validateform(context);
                               print('My button');
                             })
                       ],

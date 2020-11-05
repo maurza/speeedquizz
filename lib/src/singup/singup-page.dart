@@ -68,15 +68,19 @@ class _SingupPageState extends StateMVC<SingupPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        Text("Todos los datos marcados con * son obligatorios"),
                         TextInput(
                           textController: controller.nickNameController,
-                          labelText: 'Apodo',
+                          labelText: 'Apodo *',
                         ),
                         TextInput(
                           textController: controller.nombreController,
-                          labelText: 'Nombre',
+                          labelText: 'Nombre *',
                         ),
-                        EmailInput(emailController: controller.emailController),
+                        EmailInput(
+                          emailController: controller.emailController,
+                          labelText: 'Correo *',
+                        ),
                         FechaInput(
                           onConfirm: controller.onDateAccept,
                           value: controller.fechaInputValue(),
@@ -90,7 +94,12 @@ class _SingupPageState extends StateMVC<SingupPage> {
                           labelText: 'Institución',
                         ),
                         PasswordInput(
-                            passwordController: controller.passwordController),
+                            passwordController: controller.passwordController,
+                            labelText: 'Contraseña *'),
+                        PasswordInput(
+                          passwordController: controller.passwordController1,
+                          labelText: 'Confirmar Contraseña *',
+                        ),
                         Row(
                           children: [
                             Checkbox(

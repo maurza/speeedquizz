@@ -3,8 +3,10 @@ import 'package:speedquizz/extras/validators.dart';
 
 class EmailInput extends StatelessWidget {
   final TextEditingController emailController;
+  final String labelText;
 
-  const EmailInput({Key key, this.emailController}) : super(key: key);
+  const EmailInput({Key key, this.emailController, this.labelText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class EmailInput extends StatelessWidget {
         validator: validators.validateEmail,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          labelText: 'Correo'.toUpperCase(),
+          labelText: labelText.toUpperCase(),
         ),
       ),
     );

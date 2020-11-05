@@ -69,9 +69,14 @@ class _LoginPageState extends StateMVC<LoginPage> {
                             fontSize: dimens.fullWidth(context) * .045,
                             color: colores.gris),
                       ),
-                      EmailInput(emailController: controller.emailController),
+                      EmailInput(
+                        emailController: controller.emailController,
+                        labelText: 'Correo',
+                      ),
                       PasswordInput(
-                          passwordController: controller.passwordController),
+                        passwordController: controller.passwordController,
+                        labelText: 'Contraseña',
+                      ),
                       Container(
                         alignment: Alignment.bottomRight,
                         margin: dimens.top(context, .01),
