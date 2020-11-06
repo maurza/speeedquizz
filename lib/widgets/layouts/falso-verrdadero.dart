@@ -33,7 +33,7 @@ class _MultiSelectState extends State<MultiSelect> {
         Row(
           children: [
             Container(width: 50, height: 50),
-            Text(widget.pregunta.enunciado)
+            Expanded(child: Text(widget.pregunta.enunciado))
           ],
         ),
         ListView(
