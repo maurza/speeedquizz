@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/pregunta.dart';
 
 import '../../extras/colores.dart';
-import '../../extras/colores.dart';
-import '../../extras/colores.dart';
-import '../../extras/dimens.dart';
 import '../../extras/dimens.dart';
 
 class MultiSelect extends StatefulWidget {
@@ -30,26 +28,37 @@ class _MultiSelectState extends State<MultiSelect> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Container(width: 50, height: 50),
-            Text(widget.pregunta.enunciado)
-          ],
+        Container(
+          margin: dimens.symetric(context, .03, .05),
+          child: Row(
+            children: [
+              Container(
+                child: Image.asset("assets/images/quizz1.png"),
+              ),
+              Expanded(
+                  child: Text(
+                widget.pregunta.enunciado,
+                style: styles.large(context),
+              ))
+            ],
+          ),
         ),
-        ListView(
-            shrinkWrap: true,
-            children: List.generate(
-                widget.pregunta.opciones.length,
-                (index) => InkWell(
-                      onTap: () {
-                        showAnswer(index);
-                      },
-                      child: _Option(
-                        opciones: widget.pregunta.opciones[index],
-                        index: index,
-                        showcolor: showing == index,
-                      ),
-                    )))
+        Expanded(
+          child: ListView(
+              shrinkWrap: true,
+              children: List.generate(
+                  widget.pregunta.opciones.length,
+                  (index) => InkWell(
+                        onTap: () {
+                          showAnswer(index);
+                        },
+                        child: _Option(
+                          opciones: widget.pregunta.opciones[index],
+                          index: index,
+                          showcolor: showing == index,
+                        ),
+                      ))),
+        )
       ],
     );
   }
@@ -79,8 +88,15 @@ class _Option extends StatelessWidget {
                 color: construircolor(showcolor),
               ),
               padding: dimens.all(context, .1),
-              child: Text(construirletra(index))),
-          Text(opciones.contenido)
+              child: Text(
+                construirletra(index),
+                style: styles.regular(context),
+              )),
+          Expanded(
+              child: Text(
+            opciones.contenido,
+            style: styles.regular(context),
+          ))
         ],
       ),
     );
@@ -99,6 +115,12 @@ class _Option extends StatelessWidget {
         break;
       case 3:
         return "D. ";
+        break;
+      case 4:
+        return "E. ";
+        break;
+      case 5:
+        return "F. ";
         break;
       default:
         return "";

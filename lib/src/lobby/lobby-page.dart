@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:speedquizz/extras/colores.dart';
 import 'package:speedquizz/extras/dimens.dart';
 import 'package:speedquizz/src/quizz/quizz-page.dart';
+import 'package:speedquizz/widgets/cards/simple-card.dart';
 import './lobby-controller.dart';
 
 class LobbyPage extends StatefulWidget {
@@ -35,24 +37,34 @@ class _LobbyPageState extends StateMVC<LobbyPage> {
       )),
       body: Container(
           width: dimens.fullWidth(context),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
+            padding: dimens.all(context, .03),
             children: [
-              FlatButton(
-                  onPressed: () {
-                    /*Navigator.pushNamed(context, QuizzPage.route,
-                        arguments: {"type": "FalsoVerdadero"});*/
-                    controller.obtenerDatosPregunta("3");
-                  },
-                  child: Text("Ir a Falso y verdadero")),
-              FlatButton(
-                  onPressed: () {
-                    /*Navigator.pushNamed(context, QuizzPage.route,
-                        arguments: {"type": "MultiSelect"});*/
-                    controller.obtenerDatosPregunta("2");
-                  },
-                  child: Text("Ir a Seleccion Multiple Unica Respuesta"))
+              SimpleCard(
+                  color: colores.amarillocards,
+                  texto: "Seleccion multiple varias respuestas",
+                  imagepath: "assets/images/card3.png",
+                  onClick: () => controller.obtenerDatosPregunta("1")),
+              SimpleCard(
+                  color: colores.verdecards,
+                  texto: "Seleccion multiple",
+                  imagepath: "assets/images/card1.png",
+                  onClick: () => controller.obtenerDatosPregunta("2")),
+              SimpleCard(
+                  color: colores.azulcards,
+                  texto: "Falso y verdadero",
+                  imagepath: "assets/images/card2.png",
+                  onClick: () => controller.obtenerDatosPregunta("3")),
+              SimpleCard(
+                  color: colores.rojocards,
+                  texto: "Completar",
+                  imagepath: "assets/images/card4.png",
+                  onClick: () => controller.obtenerDatosPregunta("4")),
+              SimpleCard(
+                  color: colores.purpuracards,
+                  texto: "Seleccion de opciones ",
+                  imagepath: "assets/images/card5.png",
+                  onClick: () => controller.obtenerDatosPregunta("5")),
             ],
           )),
     );
