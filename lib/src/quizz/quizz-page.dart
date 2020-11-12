@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:provider/provider.dart';
 import 'package:speedquizz/models/pregunta.dart';
+import 'package:speedquizz/providers/pregunta-provide.dart';
+import 'package:speedquizz/services/quizz-service.dart';
 import 'package:speedquizz/widgets/layouts/multi-select.dart';
+import 'package:speedquizz/widgets/layouts/ordenamiento.dart';
 import '../../extras/colores.dart';
 import './quizz-controller.dart';
 
@@ -22,7 +26,7 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
   Widget build(BuildContext context) {
     dynamic args = ModalRoute.of(context).settings.arguments;
     String type = args["type"];
-    Pregunta pregunta = args["pregunta"];
+    dynamic pregunta = args["pregunta"];
 
     return Scaffold(
       backgroundColor: colores.azul,
@@ -39,16 +43,21 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
         ],
       )),
       body: Container(
-        child: /*type == "2"
-            ?*/
-            MultiSelect(
-          pregunta: pregunta,
-        )
-        /*: Center(
-                child: Text(controller.pageName + ""),
-              )*/
-        ,
+        child: _returnLayout(pregunta, type),
       ),
     );
+  }
+
+  _returnLayout(dynamic pregunta, String tipoPregunta) {
+    switch (tipoPregunta) {
+      case "5":
+        Provider.of<PreguntaProvider>(context).opcionesCorrectas =
+            (pregunta.opciones);
+        return Ordenamiento(pregunta: pregunta);
+        break;
+
+      default:
+        return MultiSelect(pregunta: pregunta);
+    }
   }
 }

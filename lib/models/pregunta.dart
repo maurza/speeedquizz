@@ -1,6 +1,6 @@
 class Pregunta {
   String enunciado;
-  List<Opciones> opciones;
+  List<dynamic> opciones;
   String ayuda;
   String tip;
 
@@ -9,10 +9,17 @@ class Pregunta {
   Pregunta.fromJson(Map<String, dynamic> json) {
     enunciado = json['enunciado'];
     if (json['opciones'] != null) {
-      opciones = new List<Opciones>();
-      json['opciones'].forEach((v) {
-        opciones.add(new Opciones.fromJson(v));
-      });
+      opciones = (json['opciones'] as List).map((v) {
+        if (v.runtimeType == String) {
+          if ((v as String).contains('-')) {
+            return v;
+          } else {
+            return v;
+          }
+        } else {
+          return (new Opciones.fromJson(v));
+        }
+      }).toList();
     }
     ayuda = json['ayuda'];
     tip = json['tip'];
