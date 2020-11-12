@@ -9,6 +9,11 @@ class Styles {
     return TextStyle(fontSize: dimens.fullWidth(context) * .05);
   }
 
+  TextStyle largeBold(BuildContext context) {
+    return TextStyle(
+        fontSize: dimens.fullWidth(context) * .05, fontWeight: FontWeight.w700);
+  }
+
   TextStyle regular(BuildContext context) {
     return TextStyle(fontSize: dimens.fullWidth(context) * .04);
   }

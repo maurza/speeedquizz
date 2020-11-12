@@ -24,6 +24,26 @@ class _MultiSelectState extends State<MultiSelect> {
     });
   }
 
+  showDialogAnswer(answer) {
+    bool correcta = answer == 0 ? false : true;
+    String mensaje =
+        correcta ? "La respuesta es correcta!" : "La respuesta es incorrecta";
+
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              content: Text(mensaje),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Aceptar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,6 +71,8 @@ class _MultiSelectState extends State<MultiSelect> {
                   (index) => InkWell(
                         onTap: () {
                           showAnswer(index);
+                          showDialogAnswer(
+                              widget.pregunta.opciones[index].correcta);
                         },
                         child: _Option(
                           opciones: widget.pregunta.opciones[index],
