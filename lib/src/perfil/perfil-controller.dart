@@ -120,9 +120,11 @@ class PerfilController extends ControllerMVC {
     if (responseToJson['state'] == "changed") {
       Provider.of<UserProvider>(context, listen: false).user =
           User.fromJson(userInsert);
-      Navigator.pushReplacementNamed(context, LobbyPage.route);
+      showTyCDialog("Los campos han sido actualizados con exito!", () {
+        Navigator.pop(context);
+      });
     } else {
-      showTyCDialog("No se pudieron Actualizar Revisa los campos");
+      showTyCDialog("No se pudieron Actualizar los campos", () {});
     }
   }
 
@@ -133,14 +135,14 @@ class PerfilController extends ControllerMVC {
           nombreController.text != "") {
         actualizarInfo();
       } else {
-        showTyCDialog("Faltan campos obligatorios por Rellenar");
+        showTyCDialog("Faltan campos obligatorios por Rellenar", () {});
       }
     } else {
-      showTyCDialog("No se pudieron Actualizar Revisa los campos");
+      showTyCDialog("No se pudieron Actualizar Revisa los campos", () {});
     }
   }
 
-  showTyCDialog(String texto) {
+  showTyCDialog(String texto, Function whencomplete) {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -153,7 +155,7 @@ class PerfilController extends ControllerMVC {
                   },
                 )
               ],
-            ));
+            )).whenComplete(() => whencomplete());
   }
 
   irCambiarContra() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:speedquizz/providers/pregunta-provide.dart';
 import 'package:speedquizz/providers/user-provider.dart';
 import 'package:speedquizz/src/changePassword/changePassword-page.dart';
 import 'package:speedquizz/src/lobby/lobby-page.dart';
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProvider<PreguntaProvider>(
+            create: (_) => PreguntaProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
