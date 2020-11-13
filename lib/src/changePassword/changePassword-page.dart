@@ -4,26 +4,26 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:speedquizz/extras/dimens.dart';
 import 'package:speedquizz/extras/paths.dart';
 import 'package:speedquizz/widgets/buttons/rounder-button.dart';
-import 'package:speedquizz/widgets/inputs/email-input.dart';
-import 'package:speedquizz/widgets/inputs/fecha-input.dart';
-import 'package:speedquizz/widgets/inputs/text-input.dart';
-import './perfil-controller.dart';
+import 'package:speedquizz/widgets/inputs/password-input.dart';
+import './changePassword-controller.dart';
 
-class PerfilPage extends StatefulWidget {
-  static const route = 'perfil';
+class ChangePasswordPage extends StatefulWidget {
+  static const route = '/ChangePassword';
   @override
-  _PerfilPageState createState() => _PerfilPageState();
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-class _PerfilPageState extends StateMVC<PerfilPage> {
-  _PerfilPageState() : super(PerfilController()) {
-    controller = PerfilController.con;
+class _ChangePasswordPageState extends StateMVC<ChangePasswordPage> {
+  _ChangePasswordPageState() : super(ChangePasswordController()) {
+    controller = ChangePasswordController.con;
   }
 
-  PerfilController controller;
+  ChangePasswordController controller;
+
   @override
   Widget build(BuildContext context) {
     bool isKeyboardClose = (MediaQuery.of(context).viewInsets.bottom == 0.0);
+
     return Scaffold(
       appBar: AppBar(title: Text(controller.pageName)),
       body: Stack(
@@ -60,52 +60,27 @@ class _PerfilPageState extends StateMVC<PerfilPage> {
                     ],
                   ),
                   Form(
-                    key: controller.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text("Todos los datos marcados con * son obligatorios"),
-                        TextInput(
-                          textController: controller.nickNameController,
-                          labelText: 'Apodo *',
+                        PasswordInput(
+                          passwordController:
+                              controller.passwordControllerVieja,
+                          labelText: 'Contraseña Actual *',
                         ),
-                        TextInput(
-                          textController: controller.nombreController,
-                          labelText: 'Nombre *',
+                        PasswordInput(
+                          passwordController:
+                              controller.passwordControllerNueva1,
+                          labelText: 'Nueva Contraseña *',
                         ),
-                        EmailInput(
-                            emailController: controller.emailControllers,
-                            labelText: 'Correo *'),
-                        FechaInput(
-                          onConfirm: controller.onDateAccept,
-                          value: controller.fechaInputValue(),
+                        PasswordInput(
+                          passwordController:
+                              controller.passwordControllerNueva2,
+                          labelText: 'Confirmar Contraseña *',
                         ),
-                        TextInput(
-                          textController: controller.carreraController,
-                          labelText: 'Carrera',
-                        ),
-                        TextInput(
-                          textController: controller.institucionController,
-                          labelText: 'Institución',
-                        ),
-                        Visibility(
-                            visible: false,
-                            child: Text(
-                              'Revisa los datos!',
-                              style: TextStyle(
-                                  fontSize: dimens.fullWidth(context) * .045,
-                                  color: Colors.red),
-                            )),
-                        RounderButton(
-                            buttonBorderColor:
-                                Hexcolor('#94D9D4').withOpacity(0.7),
-                            buttonColor: Hexcolor('#E4907A'),
-                            buttonText: 'Actualizar',
-                            onClick: () {
-                              controller.validateform(context);
-                              print('My button');
-                            }),
+                        Text("Asegurese de recordar la nueva contraseña"),
                         changePasswordButton(controller)
                       ],
                     ),
@@ -120,11 +95,11 @@ class _PerfilPageState extends StateMVC<PerfilPage> {
   }
 }
 
-Widget changePasswordButton(PerfilController controller) {
+Widget changePasswordButton(ChangePasswordController controller) {
   return OutlineButton(
     splashColor: Colors.grey,
     onPressed: () {
-      controller.irCambiarContra();
+      controller.cambiarPassword();
     },
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
     highlightElevation: 0,
@@ -139,7 +114,7 @@ Widget changePasswordButton(PerfilController controller) {
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
-              '  ¿Cambiar Contraseña?   ',
+              '       Guardar cambios        ',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.grey,

@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:speedquizz/models/user.dart';
 import 'package:speedquizz/providers/user-provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:speedquizz/src/changePassword/changePassword-controller.dart';
+import 'package:speedquizz/src/changePassword/changePassword-page.dart';
 import 'package:speedquizz/src/lobby/lobby-page.dart';
 
 class PerfilController extends ControllerMVC {
@@ -152,5 +154,9 @@ class PerfilController extends ControllerMVC {
                 )
               ],
             ));
+  }
+
+  irCambiarContra() {
+    Navigator.pushReplacementNamed(context, ChangePasswordPage.route);
   }
 }

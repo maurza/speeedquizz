@@ -34,7 +34,7 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
           IconButton(
               icon: Icon(Icons.help),
               onPressed: () {
-                controller.mostrarAyuda(context, pregunta.tip);
+                controller.mostrarAyuda(context, pregunta.ayuda);
               })
         ],
       )),

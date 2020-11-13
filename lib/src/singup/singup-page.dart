@@ -114,7 +114,7 @@ class _SingupPageState extends StateMVC<SingupPage> {
                         Visibility(
                             visible: controller.failedRegistro,
                             child: Text(
-                              'Registro FALLIDO!',
+                              'Registro FALLIDO, NickName o Correo YA existe!',
                               style: TextStyle(
                                   fontSize: dimens.fullWidth(context) * .045,
                                   color: Colors.red),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:speedquizz/providers/user-provider.dart';
+import 'package:speedquizz/src/changePassword/changePassword-page.dart';
 import 'package:speedquizz/src/lobby/lobby-page.dart';
 import 'package:speedquizz/src/login/login-page.dart';
 import 'package:speedquizz/src/onboarding/onboarding-page.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
           '/welcome': (context) => WelcomePage(),
           LobbyPage.route: (context) => LobbyPage(),
           PerfilPage.route: (context) => PerfilPage(),
-          QuizzPage.route: (context) => QuizzPage()
+          QuizzPage.route: (context) => QuizzPage(),
+          ChangePasswordPage.route: (context) => ChangePasswordPage()
         },
         initialRoute: '/',
       ),
