@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:provider/provider.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/services/quizz-service.dart';
 import 'package:speedquizz/src/perfil/perfil-page.dart';
 import 'package:speedquizz/src/quizz/quizz-page.dart';
+
+import '../../providers/pregunta-provide.dart';
 
 class LobbyController extends ControllerMVC {
   factory LobbyController() {
@@ -22,6 +25,7 @@ class LobbyController extends ControllerMVC {
   void initState() {
     Future.delayed(Duration.zero, () {
       context = con.stateMVC.context;
+
       setState(() {});
     });
     super.initState();
@@ -32,6 +36,8 @@ class LobbyController extends ControllerMVC {
   }
 
   irAlQuizz(String tipoPregunta, Pregunta pregunta) {
+    Provider.of<PreguntaProvider>(context, listen: false).opcionesCorrectas =
+        [];
     Navigator.pushNamed(context, QuizzPage.route,
         arguments: {"type": tipoPregunta, "pregunta": pregunta});
   }

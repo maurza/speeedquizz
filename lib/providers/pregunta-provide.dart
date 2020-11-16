@@ -6,7 +6,13 @@ class PreguntaProvider extends ChangeNotifier {
   List get opcionesCorrectas => _opcionesCorrectas;
 
   set opcionesCorrectas(List opcionesCorrectas) {
-    _opcionesCorrectas = opcionesCorrectas;
-    notifyListeners();
+    if (_opcionesCorrectas.length == 0) {
+      _opcionesCorrectas = opcionesCorrectas;
+      notifyListeners();
+    }
+    if (opcionesCorrectas.length == 0) {
+      _opcionesCorrectas = opcionesCorrectas;
+      notifyListeners();
+    }
   }
 }

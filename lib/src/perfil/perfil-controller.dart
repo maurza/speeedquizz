@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:provider/provider.dart';
+import 'package:speedquizz/extras/dialogs.dart';
 import 'package:speedquizz/models/user.dart';
 import 'package:speedquizz/providers/user-provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:speedquizz/src/changePassword/changePassword-controller.dart';
 import 'package:speedquizz/src/changePassword/changePassword-page.dart';
 import 'package:speedquizz/src/lobby/lobby-page.dart';
+import 'package:toast/toast.dart';
 
 class PerfilController extends ControllerMVC {
   factory PerfilController() {
@@ -64,7 +66,7 @@ class PerfilController extends ControllerMVC {
     if (bornDate == null) {
       return 'Fecha de nacimiento';
     } else {
-      return DateFormat.yMMMMd('es').format(bornDate);
+      return DateFormat('y-M-d', 'es').format(bornDate);
     }
   }
 
@@ -111,18 +113,20 @@ class PerfilController extends ControllerMVC {
     };
 
     final msg = jsonEncode(jasonReq);
-    print(msg);
 
+    showLoadingDialog(context);
     final response = await http.put(apiUrl, headers: requestHeaders, body: msg);
+    hideLoadingDialog(context);
 
     final responseToJson = jsonDecode(response.body);
 
     if (responseToJson['state'] == "changed") {
       Provider.of<UserProvider>(context, listen: false).user =
           User.fromJson(userInsert);
-      showTyCDialog("Los campos han sido actualizados con exito!", () {
-        Navigator.pop(context);
-      });
+
+      /// Se muestra aleta de confirmacion
+      Toast.show("Contraseña actualizada!", context,
+          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     } else {
       showTyCDialog("No se pudieron Actualizar los campos", () {});
     }

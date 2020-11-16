@@ -7,6 +7,9 @@ import 'package:speedquizz/services/quizz-service.dart';
 import 'package:speedquizz/widgets/layouts/multi-select.dart';
 import 'package:speedquizz/widgets/layouts/ordenamiento.dart';
 import '../../extras/colores.dart';
+import '../../extras/colores.dart';
+import '../../extras/dimens.dart';
+import '../../extras/dimens.dart';
 import './quizz-controller.dart';
 
 class QuizzPage extends StatefulWidget {
@@ -24,12 +27,8 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
 
   @override
   Widget build(BuildContext context) {
-    dynamic args = ModalRoute.of(context).settings.arguments;
-    String type = args["type"];
-    dynamic pregunta = args["pregunta"];
-
     return Scaffold(
-      backgroundColor: colores.azul,
+      backgroundColor: colores.blanco,
       appBar: AppBar(
           title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,12 +37,18 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
           IconButton(
               icon: Icon(Icons.help),
               onPressed: () {
-                controller.mostrarAyuda(context, pregunta.ayuda);
+                controller.mostrarAyuda(context, controller.pregunta.ayuda);
               })
         ],
       )),
       body: Container(
-        child: _returnLayout(pregunta, type),
+        margin: dimens.all(context, .05),
+        decoration: BoxDecoration(
+            color: colores.azul,
+            borderRadius: dimens.borderRadiusContainer(30)),
+        child: controller.pregunta != null
+            ? _returnLayout(controller.pregunta, controller.type)
+            : Container(),
       ),
     );
   }
@@ -51,8 +56,6 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
   _returnLayout(dynamic pregunta, String tipoPregunta) {
     switch (tipoPregunta) {
       case "5":
-        Provider.of<PreguntaProvider>(context).opcionesCorrectas =
-            (pregunta.opciones);
         return Ordenamiento(pregunta: pregunta);
         break;
 

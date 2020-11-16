@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../lobby/lobby-page.dart';
+
 class WelcomeController extends ControllerMVC {
   factory WelcomeController() {
     _this = WelcomeController._();
@@ -22,10 +24,10 @@ class WelcomeController extends ControllerMVC {
     super.initState();
   }
 
-  goToOnboarding() {
+  goToLobby() {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      '/onboarding',
+      LobbyPage.route,
       (Route<dynamic> route) => false,
     );
   }

@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/constants.dart';
+import 'package:speedquizz/extras/dialogs.dart';
 import 'package:speedquizz/models/user.dart';
 import 'package:speedquizz/providers/user-provider.dart';
 import 'dart:convert';
@@ -32,8 +33,10 @@ class LoginController extends ControllerMVC {
         failedAutentication = true;
       });
     } else {
+      showLoadingDialog(context);
       http.Response response =
           await http.get(Constants().url + emailController.text);
+      hideLoadingDialog(context);
       data = json.decode(response.body);
     }
 

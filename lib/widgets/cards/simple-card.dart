@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:speedquizz/extras/dimens.dart';
 
+import '../../extras/dimens.dart';
+
 class SimpleCard extends StatelessWidget {
   final Color color;
   final String imagepath;
@@ -22,15 +24,16 @@ class SimpleCard extends StatelessWidget {
         child: Stack(
           children: [
             Container(
+              height: dimens.fullWidth(context) * .2,
               decoration: BoxDecoration(
-                  color: color.withOpacity(.8),
-                  borderRadius: dimens.borderRadiusContainer(15)),
+                  color: color.withOpacity(.7),
+                  borderRadius: dimens.borderRadiusContainer(25)),
             ),
             Container(
-              margin: dimens.top(context, .05),
+              margin: dimens.top(context, .03),
               padding: dimens.symetric(context, .05, .02),
               decoration: BoxDecoration(
-                  color: color, borderRadius: dimens.borderRadiusContainer(15)),
+                  color: color, borderRadius: dimens.borderRadiusContainer(25)),
               child: Row(
                 children: [
                   Container(

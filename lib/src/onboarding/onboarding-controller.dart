@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:speedquizz/extras/paths.dart';
 
+import '../welcome/welcome-page.dart';
+
 class OnboardingController extends ControllerMVC {
   factory OnboardingController() {
     _this = OnboardingController._();
@@ -36,11 +38,14 @@ class OnboardingController extends ControllerMVC {
       progreso: 1,
     )
   ];
-  nextTip() {
+
+  nextTip(BuildContext context) {
     setState(() {
       if (currentData < data.length - 1) {
         currentData = currentData + 1;
-      } else {}
+      } else {
+        Navigator.pushReplacementNamed(context, WelcomePage.route);
+      }
     });
   }
 }

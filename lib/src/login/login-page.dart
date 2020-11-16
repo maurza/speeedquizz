@@ -103,8 +103,6 @@ class _LoginPageState extends StateMVC<LoginPage> {
                           buttonText: 'Ingresar',
                           onClick: () {
                             controller.login(context);
-
-                            print('My button');
                           }),
                       RounderButton(
                           buttonBorderColor:
@@ -113,7 +111,6 @@ class _LoginPageState extends StateMVC<LoginPage> {
                           buttonText: 'Registrarse',
                           onClick: () {
                             controller.singup(context);
-                            print('My button');
                           })
                       //controller.signInButton()
                     ],

@@ -82,30 +82,31 @@ class _LobbyPageState extends StateMVC<LobbyPage> {
               padding: dimens.all(context, .03),
               children: [
                 SimpleCard(
-                    color: colores.amarillocards,
-                    texto: "Seleccion multiple varias respuestas",
-                    imagepath: "assets/images/card3.png",
+                    color: colores.verdecards,
+                    texto: "Fácil/Sel. Multiple",
+                    imagepath: "assets/images/card2.png",
                     onClick: () => controller.obtenerDatosPregunta("1")),
                 SimpleCard(
-                    color: colores.verdecards,
-                    texto: "Seleccion multiple",
+                    color: colores.amarillocards,
+                    texto: "Medio/Sel. Multiple",
                     imagepath: "assets/images/card1.png",
                     onClick: () => controller.obtenerDatosPregunta("2")),
                 SimpleCard(
-                    color: colores.azulcards,
-                    texto: "Falso y verdadero",
-                    imagepath: "assets/images/card2.png",
+                    color: colores.rojocards,
+                    texto: "Difícil/F y V",
+                    imagepath: "assets/images/suero.png",
                     onClick: () => controller.obtenerDatosPregunta("3")),
                 SimpleCard(
-                    color: colores.rojocards,
-                    texto: "Completar",
-                    imagepath: "assets/images/card4.png",
-                    onClick: () => controller.obtenerDatosPregunta("4")),
+                    color: colores.azulcards,
+                    texto: "Aleatorio/ordenar",
+                    imagepath: "assets/images/ambu.png",
+                    onClick: () => controller.obtenerDatosPregunta("5")),
+                /*
                 SimpleCard(
                     color: colores.purpuracards,
                     texto: "Ordenar",
                     imagepath: "assets/images/card5.png",
-                    onClick: () => controller.obtenerDatosPregunta("5")),
+                    onClick: () => controller.obtenerDatosPregunta("5")),*/
               ],
             ),
           ),

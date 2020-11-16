@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:speedquizz/extras/dialogs.dart';
 import 'dart:convert';
 
 import 'package:speedquizz/models/user.dart';
+
+import '../../providers/user-provider.dart';
 
 class SingupController extends ControllerMVC {
   factory SingupController() {
@@ -61,13 +65,16 @@ class SingupController extends ControllerMVC {
 
       print(msg);
 
-      final response =
-          await http.post(apiUrl, headers: requestHeaders, body: msg);
-
+      showLoadingDialog(context);
+      final response = await http
+          .post(apiUrl, headers: requestHeaders, body: msg)
+          .catchError((e) => print(e));
+      hideLoadingDialog(context);
       print(response.body);
 
       if (json.decode(response.body) == "respusido") {
-        goToWelcome();
+        Provider.of<UserProvider>(context, listen: false).user = user;
+        goToOnboarding();
       } else {
         setState(() {
           failedRegistro = true;
@@ -101,10 +108,9 @@ class SingupController extends ControllerMVC {
     }
   }
 
-  goToWelcome() {
+  goToOnboarding() {
     Navigator.pushNamedAndRemoveUntil(
-        context, '/welcome', (Route<dynamic> route) => false,
-        arguments: user);
+        context, '/onboarding', (Route<dynamic> route) => false);
   }
 
   /// Se crea una clase tipo user  con todos los datos  obtenidoos
@@ -116,7 +122,7 @@ class SingupController extends ControllerMVC {
       "correo": emailController.text,
       "institucion": institucionController.text,
       "carrera": carreraController.text,
-      "fecha_nacimiento": bornDate.toString(),
+      "fecha_nacimiento": fechaInputValue(),
       "password": passwordController.text
     });
     setState(() {});
@@ -128,7 +134,7 @@ class SingupController extends ControllerMVC {
     if (bornDate == null) {
       return 'Fecha de nacimiento';
     } else {
-      return DateFormat.yMMMMd('es').format(bornDate);
+      return DateFormat('y-M-d', 'es').format(bornDate);
     }
   }
 

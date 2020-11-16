@@ -93,7 +93,6 @@ class _PerfilPageState extends StateMVC<PerfilPage> {
                       buttonText: 'Actualizar',
                       onClick: () {
                         controller.validateform(context);
-                        print('My button');
                       }),
                   changePasswordButton(controller)
                 ],

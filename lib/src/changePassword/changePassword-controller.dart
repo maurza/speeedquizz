@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:provider/provider.dart';
+import 'package:speedquizz/extras/dialogs.dart';
 import 'package:speedquizz/models/user.dart';
 import 'package:speedquizz/providers/user-provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:speedquizz/src/lobby/lobby-page.dart';
+import 'package:toast/toast.dart';
 
 class ChangePasswordController extends ControllerMVC {
   factory ChangePasswordController() {
@@ -55,8 +57,10 @@ class ChangePasswordController extends ControllerMVC {
     if (user.password == passwordControllerVieja.text) {
       if (validarCampos(
           passwordControllerNueva1.text, passwordControllerNueva2.text)) {
+        showLoadingDialog(context);
         final response =
             await http.put(apiUrl, headers: requestHeaders, body: msg);
+        hideLoadingDialog(context);
 
         if (jsonDecode(response.body)['state'] == "changed") {
           final userInsert = {
@@ -74,9 +78,19 @@ class ChangePasswordController extends ControllerMVC {
             "Li_id_Liga": user.liIdLiga,
             "Est_id_estado": user.estIdEstado
           };
+
+          /// Se actualizan los dator del usuario
           Provider.of<UserProvider>(context, listen: false).user =
               User.fromJson(userInsert);
-          Navigator.pushReplacementNamed(context, LobbyPage.route);
+
+          /// Se muestra aleta de confirmacion
+          Toast.show("Contraseña actualizada!", context,
+              duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+
+          Future.delayed(Duration(seconds: 1), () {
+            /// Se retorna al Lobby
+            Navigator.pushReplacementNamed(context, LobbyPage.route);
+          });
         } else {
           showCamposDialog("No se pudieron Actualizar Revisa los campos");
         }

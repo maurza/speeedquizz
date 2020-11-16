@@ -126,7 +126,6 @@ class _SingupPageState extends StateMVC<SingupPage> {
                             buttonText: 'Registrarse',
                             onClick: () {
                               controller.validateForm(context);
-                              print('My button');
                             })
                       ],
                     ),

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/user.dart';
 import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
+import '../../providers/user-provider.dart';
 import '../../widgets/buttons/rounder-button.dart';
 import './welcome-controller.dart';
 
 class WelcomePage extends StatefulWidget {
+  static String route = '/welcome';
   @override
   _WelcomePageState createState() => _WelcomePageState();
 }
@@ -21,9 +24,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    /// con esta estructura se oobtienen los  datos que se  enviarron
-    /// de la vista anteriior
-    User user = ModalRoute.of(context).settings.arguments;
+    User user = Provider.of<UserProvider>(context, listen: false).user;
     return Scaffold(
       appBar: AppBar(title: Text('Bienvenido! ' + user.nickname)),
       body: Container(
@@ -60,7 +61,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
               buttonColor: colores.azul,
               buttonBorderColor: colores.azul,
               buttonText: 'Aceptar',
-              onClick: () => controller.goToOnboarding(),
+              onClick: () => controller.goToLobby(),
             )
           ],
         ),
