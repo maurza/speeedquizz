@@ -4,6 +4,7 @@ import 'package:speedquizz/models/pregunta.dart';
 
 import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
+import '../../extras/dimens.dart';
 
 class MultiSelect extends StatefulWidget {
   final Pregunta pregunta;
@@ -96,7 +97,7 @@ class _Option extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
-      margin: dimens.all(context, .02),
+      margin: dimens.symetric(context, .05, .01),
       decoration: BoxDecoration(
         borderRadius: dimens.borderRadiusContainer(15),
         color: construircolor(showcolor),
@@ -109,7 +110,8 @@ class _Option extends StatelessWidget {
                 borderRadius: dimens.borderRadiusContainer(15),
                 color: construircolor(showcolor),
               ),
-              padding: dimens.all(context, .1),
+              padding: dimens.symetric(context, .05, .05),
+              margin: dimens.horizontal(context, .05),
               child: Text(
                 construirletra(index),
                 style: styles.regular(context),
