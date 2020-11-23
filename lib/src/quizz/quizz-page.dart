@@ -4,12 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/providers/pregunta-provide.dart';
 import 'package:speedquizz/services/quizz-service.dart';
+import 'package:speedquizz/widgets/layouts/emparejamiento.dart';
 import 'package:speedquizz/widgets/layouts/multi-select.dart';
 import 'package:speedquizz/widgets/layouts/ordenamiento.dart';
 import '../../extras/colores.dart';
 import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
 import '../../extras/dimens.dart';
+import '../../widgets/layouts/falso-verrdadero.dart';
 import './quizz-controller.dart';
 
 class QuizzPage extends StatefulWidget {
@@ -60,11 +62,24 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
 
   Widget _returnLayout(dynamic pregunta, String tipoPregunta) {
     switch (tipoPregunta) {
+      case "3":
+        return FalsoVerdadero(
+            pregunta: pregunta,
+            validate: (answer) => controller.validarRespuesta(answer));
+        break;
+
       case "4":
         return Ordenamiento(pregunta: pregunta);
         break;
 
+      case "5":
+        return Emparejamiento(
+            pregunta: pregunta,
+            validate: (answer) => controller.validarRespuesta(answer));
+        break;
+
       default:
+        print(pregunta.opciones[0].toJson());
         return MultiSelect(
           pregunta: pregunta,
           validate: (answer) => controller.validarRespuesta(answer),

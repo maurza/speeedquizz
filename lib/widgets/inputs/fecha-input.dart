@@ -32,7 +32,7 @@ class FechaInput extends StatelessWidget {
                   borderRadius: dimens.borderRadiusContainer(10)),
               width: dimens.fullWidth(context) * .12,
               height: dimens.fullWidth(context) * .12,
-              child: Icon(Icons.arrow_circle_down_rounded),
+              /* child: Icon(Icons.arrow_circle_down_rounded), */
             ),
           )
         ],

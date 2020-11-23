@@ -39,11 +39,18 @@ class _MultiSelectState extends State<MultiSelect> {
   }
 
   validarSelecionada() {
-    List coincidencias = opcionesSeleccionadas
+    List coincidenciasOpcion = widget.pregunta.opciones
+        .where((element) => element.correcta == 1)
+        .toList();
+    List coincidenciasCorrectas = opcionesSeleccionadas
+        .where((element) => element.correcta == 1)
+        .toList();
+    List coincidenciasIncorrectas = opcionesSeleccionadas
         .where((element) => element.correcta == 0)
         .toList();
-    print(coincidencias.length);
-    return coincidencias.length == 0;
+    return opcionesSeleccionadas.length > 1 &&
+        coincidenciasIncorrectas.length == 0 &&
+        coincidenciasOpcion.length == coincidenciasCorrectas.length;
   }
 
   showAnswer(int index) {
@@ -78,6 +85,7 @@ class _MultiSelectState extends State<MultiSelect> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.pregunta.opciones[0]);
     return Column(
       children: [
         Container(
@@ -125,7 +133,11 @@ class _MultiSelectState extends State<MultiSelect> {
                 buttonColor: Hexcolor('#94D9D4'),
                 buttonText: 'Validar',
                 onClick: () {
-                  print(validarSelecionada());
+                  if (validarSelecionada()) {
+                    showDialogAnswer(1);
+                  } else {
+                    showDialogAnswer(0);
+                  }
                 }))
       ],
     );

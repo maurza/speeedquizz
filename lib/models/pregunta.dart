@@ -48,9 +48,9 @@ class Opciones {
   Opciones({this.contenido, this.correcta});
 
   Opciones.fromJson(Map<String, dynamic> json) {
-    print(json);
+    /* print(json); */
     contenido = json['contenido'];
-    correcta = json['correcta'];
+    correcta = json['correcta'] ?? json['valor'];
   }
 
   Map<String, dynamic> toJson() {
