@@ -10,4 +10,10 @@ class QuizzService {
         .catchError((e) => print(e));
     return json.decode(response.body);
   }
+
+  Future obtenerQuizz() async {
+    http.Response response =
+        await http.get(Constants().url + "gQuiz/").catchError((e) => print(e));
+    return json.decode(response.body)["quiz"];
+  }
 }

@@ -125,7 +125,7 @@ class PerfilController extends ControllerMVC {
           User.fromJson(userInsert);
 
       /// Se muestra aleta de confirmacion
-      Toast.show("Contraseña actualizada!", context,
+      Toast.show("Información actualizada!", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     } else {
       showTyCDialog("No se pudieron Actualizar los campos", () {});

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/pregunta.dart';
 
 import '../../extras/colores.dart';
-import '../../extras/colores.dart';
-import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
 import '../../extras/dimens.dart';
 
-class MultiSelect extends StatefulWidget {
+class FalsoVerdadero extends StatefulWidget {
   final Pregunta pregunta;
+  final Function validate;
 
-  const MultiSelect({Key key, this.pregunta}) : super(key: key);
+  const FalsoVerdadero({Key key, this.pregunta, this.validate})
+      : super(key: key);
   @override
-  _MultiSelectState createState() => _MultiSelectState();
+  _FalsoVerdaderoState createState() => _FalsoVerdaderoState();
 }
 
-class _MultiSelectState extends State<MultiSelect> {
+class _FalsoVerdaderoState extends State<FalsoVerdadero> {
   int showing = -1;
   showAnswer(int index) {
     showing = index;
@@ -26,30 +27,64 @@ class _MultiSelectState extends State<MultiSelect> {
     });
   }
 
+  showDialogAnswer(answer) {
+    bool correcta = answer == 0 ? false : true;
+
+    String mensaje =
+        correcta ? "La respuesta es correcta!" : "La respuesta es incorrecta";
+
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              content: Text(mensaje),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Aceptar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            )).then((value) => widget.validate(correcta));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Container(width: 50, height: 50),
-            Expanded(child: Text(widget.pregunta.enunciado))
-          ],
+        Container(
+          margin: dimens.symetric(context, .03, .05),
+          child: Row(
+            children: [
+              Container(
+                child: Image.asset("assets/images/quizz1.png"),
+              ),
+              Expanded(
+                  child: Text(
+                widget.pregunta.enunciado,
+                style: styles.large(context),
+              ))
+            ],
+          ),
         ),
-        ListView(
-            shrinkWrap: true,
-            children: List.generate(
-                widget.pregunta.opciones.length,
-                (index) => InkWell(
-                      onTap: () {
-                        showAnswer(index);
-                      },
-                      child: _Option(
-                        opciones: widget.pregunta.opciones[index],
-                        index: index,
-                        showcolor: showing == index,
-                      ),
-                    )))
+        Expanded(
+          child: ListView(
+              shrinkWrap: true,
+              children: List.generate(
+                  widget.pregunta.opciones.length,
+                  (index) => InkWell(
+                        onTap: () {
+                          showAnswer(index);
+                          showDialogAnswer(
+                              widget.pregunta.opciones[index].correcta);
+                        },
+                        child: _Option(
+                          opciones: widget.pregunta.opciones[index],
+                          index: index,
+                          showcolor: showing == index,
+                        ),
+                      ))),
+        )
       ],
     );
   }
@@ -65,7 +100,7 @@ class _Option extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
-      margin: dimens.all(context, .02),
+      margin: dimens.symetric(context, .05, .01),
       decoration: BoxDecoration(
         borderRadius: dimens.borderRadiusContainer(15),
         color: construircolor(showcolor),
@@ -78,9 +113,17 @@ class _Option extends StatelessWidget {
                 borderRadius: dimens.borderRadiusContainer(15),
                 color: construircolor(showcolor),
               ),
-              padding: dimens.all(context, .1),
-              child: Text(construirletra(index))),
-          Text(opciones.contenido)
+              padding: dimens.symetric(context, .05, .05),
+              margin: dimens.horizontal(context, .05),
+              child: Text(
+                construirletra(index),
+                style: styles.regular(context),
+              )),
+          Expanded(
+              child: Text(
+            opciones.contenido,
+            style: styles.regular(context),
+          ))
         ],
       ),
     );
@@ -99,6 +142,12 @@ class _Option extends StatelessWidget {
         break;
       case 3:
         return "D. ";
+        break;
+      case 4:
+        return "E. ";
+        break;
+      case 5:
+        return "F. ";
         break;
       default:
         return "";

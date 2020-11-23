@@ -43,9 +43,6 @@ class LobbyController extends ControllerMVC {
   }
 
   obtenerDatosPregunta(String tipoPregunta) {
-    QuizzService().obtenerPregunta(tipoPregunta).then((value) {
-      Pregunta preg = Pregunta.fromJson(value);
-      irAlQuizz(tipoPregunta, preg);
-    });
+    irAlQuizz(tipoPregunta, null);
   }
 }

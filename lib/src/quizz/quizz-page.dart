@@ -46,21 +46,29 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
         decoration: BoxDecoration(
             color: colores.azul,
             borderRadius: dimens.borderRadiusContainer(30)),
-        child: controller.pregunta != null
-            ? _returnLayout(controller.pregunta, controller.type)
+        child: controller.preguntas.length > 0
+            ? PageView(
+                controller: controller.pageController,
+                children: controller.preguntas
+                    .map((pregunta) => _returnLayout(
+                        pregunta, pregunta.tipoPregunta.toString()))
+                    .toList())
             : Container(),
       ),
     );
   }
 
-  _returnLayout(dynamic pregunta, String tipoPregunta) {
+  Widget _returnLayout(dynamic pregunta, String tipoPregunta) {
     switch (tipoPregunta) {
-      case "5":
+      case "4":
         return Ordenamiento(pregunta: pregunta);
         break;
 
       default:
-        return MultiSelect(pregunta: pregunta);
+        return MultiSelect(
+          pregunta: pregunta,
+          validate: (answer) => controller.validarRespuesta(answer),
+        );
     }
   }
 }

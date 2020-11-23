@@ -83,22 +83,22 @@ class _LobbyPageState extends StateMVC<LobbyPage> {
               children: [
                 SimpleCard(
                     color: colores.verdecards,
-                    texto: "Fácil/Sel. Multiple",
+                    texto: "Fácil",
                     imagepath: "assets/images/card2.png",
                     onClick: () => controller.obtenerDatosPregunta("1")),
                 SimpleCard(
                     color: colores.amarillocards,
-                    texto: "Medio/Sel. Multiple",
+                    texto: "Medio",
                     imagepath: "assets/images/card1.png",
                     onClick: () => controller.obtenerDatosPregunta("2")),
                 SimpleCard(
                     color: colores.rojocards,
-                    texto: "Difícil/F y V",
+                    texto: "Difícil",
                     imagepath: "assets/images/suero.png",
                     onClick: () => controller.obtenerDatosPregunta("3")),
                 SimpleCard(
                     color: colores.azulcards,
-                    texto: "Aleatorio/ordenar",
+                    texto: "Aleatorio",
                     imagepath: "assets/images/ambu.png",
                     onClick: () => controller.obtenerDatosPregunta("5")),
                 /*
