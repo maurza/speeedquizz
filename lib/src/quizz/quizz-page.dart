@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:provider/provider.dart';
+import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/providers/pregunta-provide.dart';
 import 'package:speedquizz/services/quizz-service.dart';
@@ -31,37 +32,54 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colores.blanco,
-      appBar: AppBar(
-          title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(controller.pageName),
-          IconButton(
-              icon: Icon(Icons.help),
-              onPressed: () {
-                controller.mostrarAyuda(context, controller.pregunta.ayuda);
-              })
-        ],
-      )),
-      body: Container(
-        margin: dimens.all(context, .05),
-        decoration: BoxDecoration(
-            color: colores.azul,
-            borderRadius: dimens.borderRadiusContainer(30)),
-        child: controller.preguntas.length > 0
-            ? PageView(
-                controller: controller.pageController,
-                children: controller.preguntas
-                    .map((pregunta) => _returnLayout(
-                        pregunta, pregunta.tipoPregunta.toString()))
-                    .toList())
-            : Container(),
+      body: SafeArea(
+        child: Column(children: [
+          Row(children: [
+            Container(
+              margin: dimens.fromLTRB(context, .05, .02, .05, 0),
+              height: dimens.fullWidth(context) * .25,
+              width: dimens.fullWidth(context) * .25,
+              padding: dimens.bottom(context, .03),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/icon.png'))),
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Puntos 100',
+                style: styles.miniBold(context),
+              ),
+            ),
+            Expanded(child: Container()),
+            IconButton(
+                icon: Icon(Icons.help),
+                onPressed: () {
+                  controller.mostrarAyuda(context, controller.pregunta.ayuda);
+                })
+          ]),
+          Expanded(
+            child: Container(
+              margin: dimens.all(context, .05),
+              decoration: BoxDecoration(
+                  color: colores.azul,
+                  borderRadius: dimens.borderRadiusContainer(30)),
+              child: controller.preguntas.length > 0
+                  ? PageView(
+                      controller: controller.pageController,
+                      children: controller.preguntas
+                          .map((pregunta) => _returnLayout(
+                              pregunta, pregunta.tipoPregunta.toString()))
+                          .toList())
+                  : Container(),
+            ),
+          )
+        ]),
       ),
     );
   }
 
   Widget _returnLayout(dynamic pregunta, String tipoPregunta) {
     switch (tipoPregunta) {
+      case "2":
       case "3":
         return FalsoVerdadero(
             pregunta: pregunta,
@@ -79,7 +97,6 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
         break;
 
       default:
-        print(pregunta.opciones[0].toJson());
         return MultiSelect(
           pregunta: pregunta,
           validate: (answer) => controller.validarRespuesta(answer),

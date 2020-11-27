@@ -3,6 +3,8 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/user.dart';
+import 'package:speedquizz/widgets/inputs/fecha-input.dart';
+import 'package:speedquizz/widgets/inputs/text-input.dart';
 import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
 import '../../providers/user-provider.dart';
@@ -24,46 +26,64 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context, listen: false).user;
     return Scaffold(
-      appBar: AppBar(title: Text('Bienvenido! ' + user.nickname)),
-      body: Container(
-        padding: dimens.all(context, .05),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Tus  datos de registro  son:',
-              style: styles.large(context),
-            ),
-            Text(
-              'nickName: ' + user.nickname,
-              style: styles.large(context),
-            ),
-            Text(
-              'Correo: ' + user.correo,
-              style: styles.large(context),
-            ),
-            Text(
-              'Fnac: ' + user.fecha_nacimiento,
-              style: styles.large(context),
-            ),
-            Text(
-              'Carrera: ' + user.carrera,
-              style: styles.large(context),
-            ),
-            Text(
-              'Instittucion: ' + user.institucion,
-              style: styles.large(context),
-            ),
-            Expanded(child: Container()),
-            RounderButton(
-              buttonColor: colores.azul,
-              buttonBorderColor: colores.azul,
-              buttonText: 'Aceptar',
-              onClick: () => controller.goToLobby(),
-            )
-          ],
+      body: SafeArea(
+        child: Container(
+          child: ListView(
+            padding: dimens.all(context, .05),
+            shrinkWrap: true,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Divertete\naprendiendo!',
+                      textAlign: TextAlign.center,
+                      style: styles.extraLargeBold(context)),
+                  Stack(children: [
+                    Container(
+                        margin: dimens.vertical(context, .05),
+                        height: dimens.fullWidth(context) * .5,
+                        width: dimens.fullWidth(context) * .5,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/icon.png')))),
+                    Container(
+                      margin: dimens.bottom(context, .1),
+                      height: dimens.fullWidth(context) * .5,
+                      width: dimens.fullWidth(context) * .5,
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        '0 Pts',
+                        style: styles.extraLargeBold(context),
+                      ),
+                    ),
+                  ]),
+                  TextInput(
+                    labelText: 'Nombre',
+                    textController: controller.nombreController,
+                  ),
+                  TextInput(
+                    labelText: 'Email',
+                    textController: controller.emailController,
+                  ),
+                  FechaInput(onConfirm: () {}, value: controller.fecha),
+                  TextInput(
+                    labelText: 'Carrera',
+                    textController: controller.careraController,
+                  ),
+                  TextInput(
+                    labelText: 'Institucion',
+                    textController: controller.institucionController,
+                  ),
+                  RounderButton(
+                      buttonColor: colores.azul,
+                      buttonBorderColor: colores.azul,
+                      buttonText: 'Aceptar',
+                      onClick: () => controller.goToLobby())
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
