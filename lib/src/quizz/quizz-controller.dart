@@ -53,10 +53,35 @@ class QuizzController extends ControllerMVC {
   }
 
   validarRespuesta(answer) {
-    preguntaActual = preguntaActual + 1;
-    pageController.jumpToPage(preguntaActual);
+    if (preguntaActual < preguntas.length - 1) {
+      preguntaActual = preguntaActual + 1;
+      pageController.jumpToPage(preguntaActual);
 
-    setState(() {});
+      setState(() {});
+    } else {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: dimens.borderRadius(10.0),
+            content: Text('Final de quiz'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  'ACEPTAR',
+                  style: TextStyle(color: colores.purpuracards),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(); //Cierra la alerta
+                  Navigator.of(context).pop(); //Cierra la vista
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   mostrarAyuda(BuildContext context, String ayuda) {

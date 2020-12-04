@@ -53,7 +53,8 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
             IconButton(
                 icon: Icon(Icons.help),
                 onPressed: () {
-                  controller.mostrarAyuda(context, controller.pregunta.ayuda);
+                  controller.mostrarAyuda(context,
+                      controller.preguntas[controller.preguntaActual].ayuda);
                 })
           ]),
           Expanded(
@@ -64,6 +65,7 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
                   borderRadius: dimens.borderRadiusContainer(30)),
               child: controller.preguntas.length > 0
                   ? PageView(
+                      physics: NeverScrollableScrollPhysics(),
                       controller: controller.pageController,
                       children: controller.preguntas
                           .map((pregunta) => _returnLayout(
@@ -87,7 +89,9 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
         break;
 
       case "4":
-        return Ordenamiento(pregunta: pregunta);
+        return Ordenamiento(
+            pregunta: pregunta,
+            validate: (answer) => controller.validarRespuesta(answer));
         break;
 
       case "5":

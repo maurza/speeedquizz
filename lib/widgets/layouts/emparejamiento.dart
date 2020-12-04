@@ -71,28 +71,8 @@ class _EmparejamientoState extends State<Emparejamiento> {
                               padding: dimens.all(context, .02),
                               child: Text(
                                 item.name,
-                                style: TextStyle(fontWeight: FontWeight.w700),
+                                style: styles.largeBold(context),
                               ))))))
-              .toList()),
-      Wrap(
-          children: tagList
-              .where((element) => !element.pending)
-              .map((item) => Container(
-                  margin: dimens.fromLTRB(context, 0, 0, .02, .02),
-                  child: InkWell(
-                      onTap: () => print("Hola"),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(.2),
-                              borderRadius: dimens.borderRadiusContainer(10)),
-                          padding: dimens.all(context, .02),
-                          child: Text(
-                            item.name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color:
-                                    !item.pending ? Colors.grey : Colors.black),
-                          )))))
               .toList()),
       Expanded(
         child: Container(),
@@ -114,7 +94,7 @@ class _EmparejamientoState extends State<Emparejamiento> {
     } else if (!item.pending) {
       return Colors.grey.withOpacity(.1);
     } else {
-      return Colors.white.withOpacity(.2);
+      return Colors.white;
     }
   }
 

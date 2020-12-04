@@ -16,8 +16,9 @@ import '../../extras/styles.dart';
 
 class Ordenamiento extends StatefulWidget {
   final Pregunta pregunta;
+  final Function validate;
 
-  const Ordenamiento({Key key, this.pregunta}) : super(key: key);
+  const Ordenamiento({Key key, this.pregunta, this.validate}) : super(key: key);
   @override
   _OrdenamientoState createState() => _OrdenamientoState();
 }
@@ -110,7 +111,7 @@ class _OrdenamientoState extends State<Ordenamiento> {
                   },
                 )
               ],
-            ));
+            )).then((value) => widget.validate(correcta));
   }
 }
 
