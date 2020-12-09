@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/pregunta.dart';
+import 'package:speedquizz/providers/user-provider.dart';
 
 import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
@@ -48,6 +50,18 @@ class _FalsoVerdaderoState extends State<FalsoVerdadero> {
             )).then((value) => widget.validate(correcta));
   }
 
+  asignarPuntaje(answer) {
+    bool correcto = answer == 0 ? false : true;
+
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+    int puntajeActual = provider.puntaje;
+    int puntajePregunta = correcto
+        ? widget.pregunta.costos[0].puntosAcierto
+        : widget.pregunta.costos[0].puntosFracaso;
+    puntajeActual = puntajePregunta + puntajeActual;
+    provider.puntaje = puntajeActual >= 0 ? puntajeActual : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,6 +89,8 @@ class _FalsoVerdaderoState extends State<FalsoVerdadero> {
                   (index) => InkWell(
                         onTap: () {
                           showAnswer(index);
+                          asignarPuntaje(
+                              widget.pregunta.opciones[index].correcta);
                           showDialogAnswer(
                               widget.pregunta.opciones[index].correcta);
                         },

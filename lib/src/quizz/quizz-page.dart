@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/providers/pregunta-provide.dart';
+import 'package:speedquizz/providers/user-provider.dart';
 import 'package:speedquizz/services/quizz-service.dart';
 import 'package:speedquizz/widgets/layouts/emparejamiento.dart';
 import 'package:speedquizz/widgets/layouts/multi-select.dart';
@@ -30,6 +31,7 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider provider = Provider.of<UserProvider>(context, listen: true);
     return Scaffold(
       backgroundColor: colores.blanco,
       body: SafeArea(
@@ -45,7 +47,7 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
                       image: AssetImage('assets/images/icon.png'))),
               alignment: Alignment.bottomCenter,
               child: Text(
-                'Puntos 100',
+                'Puntos ${provider.puntaje}',
                 style: styles.miniBold(context),
               ),
             ),

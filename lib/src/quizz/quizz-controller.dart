@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/colores.dart';
 import 'package:speedquizz/extras/dimens.dart';
 import 'package:speedquizz/models/pregunta.dart';
+import 'package:speedquizz/providers/user-provider.dart';
 import 'package:speedquizz/services/quizz-service.dart';
 
 import '../../providers/pregunta-provide.dart';
@@ -56,7 +57,8 @@ class QuizzController extends ControllerMVC {
     if (preguntaActual < preguntas.length - 1) {
       preguntaActual = preguntaActual + 1;
       pageController.jumpToPage(preguntaActual);
-
+      UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+      provider.usoAyuda = false;
       setState(() {});
     } else {
       showDialog<void>(
@@ -85,6 +87,8 @@ class QuizzController extends ControllerMVC {
   }
 
   mostrarAyuda(BuildContext context, String ayuda) {
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+    provider.usoAyuda = true;
     showDialog<void>(
       context: context,
       barrierDismissible: false,

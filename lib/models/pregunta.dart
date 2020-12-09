@@ -4,9 +4,14 @@ class Pregunta {
   String ayuda;
   String tip;
   int tipoPregunta;
-
+  List<Costos> costos;
   Pregunta(
-      {this.enunciado, this.opciones, this.ayuda, this.tip, this.tipoPregunta});
+      {this.enunciado,
+      this.opciones,
+      this.ayuda,
+      this.tip,
+      this.tipoPregunta,
+      this.costos});
 
   Pregunta.fromJson(Map<String, dynamic> json) {
     enunciado = json['enunciado'];
@@ -25,6 +30,12 @@ class Pregunta {
     }
     ayuda = json['ayuda'];
     tip = json['tip'];
+    if (json['costos'] != null) {
+      costos = new List<Costos>();
+      json['costos'].forEach((v) {
+        costos.add(new Costos.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +68,31 @@ class Opciones {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['contenido'] = this.contenido;
     data['correcta'] = this.correcta;
+    return data;
+  }
+}
+
+class Costos {
+  int costoAyuda;
+  int puntosAcierto;
+  int puntosFracaso;
+  String nivel;
+
+  Costos({this.costoAyuda, this.puntosAcierto, this.puntosFracaso, this.nivel});
+
+  Costos.fromJson(Map<String, dynamic> json) {
+    costoAyuda = json['costo_ayuda'];
+    puntosAcierto = json['puntos_acierto'];
+    puntosFracaso = json['puntos_fracaso'];
+    nivel = json['nivel'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['costo_ayuda'] = this.costoAyuda;
+    data['puntos_acierto'] = this.puntosAcierto;
+    data['puntos_fracaso'] = this.puntosFracaso;
+    data['nivel'] = this.nivel;
     return data;
   }
 }
