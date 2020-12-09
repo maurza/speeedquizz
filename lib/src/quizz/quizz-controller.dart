@@ -30,6 +30,8 @@ class QuizzController extends ControllerMVC {
     Future.delayed(Duration.zero, () async {
       context = con.stateMVC.context;
       setState(() {});
+      UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+      provider.puntaje = 0;
 
       dynamic args = ModalRoute.of(context).settings.arguments;
       type = args["type"];
@@ -57,8 +59,6 @@ class QuizzController extends ControllerMVC {
     if (preguntaActual < preguntas.length - 1) {
       preguntaActual = preguntaActual + 1;
       pageController.jumpToPage(preguntaActual);
-      UserProvider provider = Provider.of<UserProvider>(context, listen: false);
-      provider.usoAyuda = false;
       setState(() {});
     } else {
       showDialog<void>(
@@ -88,7 +88,9 @@ class QuizzController extends ControllerMVC {
 
   mostrarAyuda(BuildContext context, String ayuda) {
     UserProvider provider = Provider.of<UserProvider>(context, listen: false);
-    provider.usoAyuda = true;
+    int valorAyuda = preguntas[preguntaActual].costos[0].costoAyuda;
+    int nuevoPuntaje = provider.puntaje - valorAyuda;
+    provider.puntaje = nuevoPuntaje >= 0 ? nuevoPuntaje : 0;
     showDialog<void>(
       context: context,
       barrierDismissible: false,

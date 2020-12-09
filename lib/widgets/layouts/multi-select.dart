@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/styles.dart';
 import 'package:speedquizz/models/pregunta.dart';
+import 'package:speedquizz/providers/user-provider.dart';
 import 'package:speedquizz/widgets/buttons/rounder-button.dart';
 
 import '../../extras/colores.dart';
@@ -83,6 +85,18 @@ class _MultiSelectState extends State<MultiSelect> {
             )).then((value) => widget.validate(correcta));
   }
 
+  asignarPuntaje(answer) {
+    bool correcto = answer == 0 ? false : true;
+
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+    int puntajeActual = provider.puntaje;
+    int _puntajePregunta = correcto
+        ? widget.pregunta.costos[0].puntosAcierto
+        : widget.pregunta.costos[0].puntosFracaso;
+    puntajeActual = _puntajePregunta + puntajeActual;
+    provider.puntaje = puntajeActual >= 0 ? puntajeActual : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.pregunta.opciones[0]);
@@ -134,8 +148,10 @@ class _MultiSelectState extends State<MultiSelect> {
                 buttonText: 'Validar',
                 onClick: () {
                   if (validarSelecionada()) {
+                    asignarPuntaje(1);
                     showDialogAnswer(1);
                   } else {
+                    asignarPuntaje(0);
                     showDialogAnswer(0);
                   }
                 }))

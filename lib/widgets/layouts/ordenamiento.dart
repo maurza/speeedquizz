@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/providers/pregunta-provide.dart';
+import 'package:speedquizz/providers/user-provider.dart';
 import 'package:speedquizz/widgets/buttons/rounder-button.dart';
 
 import '../../extras/colores.dart';
@@ -51,6 +52,18 @@ class _OrdenamientoState extends State<Ordenamiento> {
     return items;
   }
 
+  asignarPuntaje(answer) {
+    bool correcto = answer;
+
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+    int puntajeActual = provider.puntaje;
+    int _puntajePregunta = correcto
+        ? widget.pregunta.costos[0].puntosAcierto
+        : widget.pregunta.costos[0].puntosFracaso;
+    puntajeActual = _puntajePregunta + puntajeActual;
+    provider.puntaje = puntajeActual >= 0 ? puntajeActual : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -92,6 +105,7 @@ class _OrdenamientoState extends State<Ordenamiento> {
     List correctas =
         Provider.of<PreguntaProvider>(context, listen: false).opcionesCorrectas;
 
+    asignarPuntaje(correctas.join() == opciones.join());
     showDialogAnswer(correctas.join() == opciones.join());
   }
 

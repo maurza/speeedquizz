@@ -55,10 +55,10 @@ class _FalsoVerdaderoState extends State<FalsoVerdadero> {
 
     UserProvider provider = Provider.of<UserProvider>(context, listen: false);
     int puntajeActual = provider.puntaje;
-    int puntajePregunta = correcto
+    int _puntajePregunta = correcto
         ? widget.pregunta.costos[0].puntosAcierto
         : widget.pregunta.costos[0].puntosFracaso;
-    puntajeActual = puntajePregunta + puntajeActual;
+    puntajeActual = _puntajePregunta + puntajeActual;
     provider.puntaje = puntajeActual >= 0 ? puntajeActual : 0;
   }
 
