@@ -3,10 +3,14 @@ import 'package:http/http.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/colores.dart';
+import 'package:speedquizz/extras/constants.dart';
 import 'package:speedquizz/extras/dimens.dart';
 import 'package:speedquizz/models/pregunta.dart';
 import 'package:speedquizz/providers/user-provider.dart';
 import 'package:speedquizz/services/quizz-service.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 import '../../providers/pregunta-provide.dart';
 
@@ -56,6 +60,7 @@ class QuizzController extends ControllerMVC {
   }
 
   validarRespuesta(answer) {
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
     if (preguntaActual < preguntas.length - 1) {
       preguntaActual = preguntaActual + 1;
       pageController.jumpToPage(preguntaActual);
@@ -75,6 +80,8 @@ class QuizzController extends ControllerMVC {
                   style: TextStyle(color: colores.purpuracards),
                 ),
                 onPressed: () {
+                  actualizarPuntajeBack(provider.puntaje, provider.user.correo);
+
                   Navigator.of(context).pop(); //Cierra la alerta
                   Navigator.of(context).pop(); //Cierra la vista
                 },
@@ -84,6 +91,23 @@ class QuizzController extends ControllerMVC {
         },
       );
     }
+  }
+
+  Future actualizarPuntajeBack(int puntaje, String correo) async {
+    //Header
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    };
+    //body
+    final puntNuevo = {"puntaje": puntaje};
+    final msg = jsonEncode(puntNuevo);
+
+    http.Response response = await http
+        .put(Constants().url + "cambioPuntaje/" + correo,
+            headers: requestHeaders, body: msg)
+        .catchError((e) => print(e));
+    return json.decode(response.body);
   }
 
   mostrarAyuda(BuildContext context, String ayuda) {
