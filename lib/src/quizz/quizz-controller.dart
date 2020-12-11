@@ -72,7 +72,14 @@ class QuizzController extends ControllerMVC {
         builder: (BuildContext context) {
           return AlertDialog(
             shape: dimens.borderRadius(10.0),
-            content: Text('Final de quiz'),
+            title: Column(children: [
+              Image(
+                  image: AssetImage("assets/images/nursing.png"),
+                  height: 150.0),
+              Text('Finalizaste Exitosamente'),
+              Text('TU PUNTUACIÓN FUÉ: ' + provider.puntaje.toString()),
+            ]),
+            content: Text(''),
             actions: <Widget>[
               FlatButton(
                 child: Text(
