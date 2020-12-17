@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:speedquizz/extras/styles.dart';
+import 'package:speedquizz/providers/user-provider.dart';
 
 import '../../extras/colores.dart';
 import '../../extras/dimens.dart';
@@ -23,6 +25,7 @@ class _EmparejamientoState extends State<Emparejamiento> {
 
   _Item itemSelected1;
   _Item itemSelected2;
+  int intentosFallidos = 0;
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
@@ -79,12 +82,14 @@ class _EmparejamientoState extends State<Emparejamiento> {
       ),
       if (monstrarBotonContinuar())
         RounderButton(
-          radius: 20.0,
-          buttonBorderColor: Hexcolor('#94D9D4').withOpacity(0.7),
-          buttonColor: Hexcolor('#94D9D4'),
-          buttonText: 'Continuar',
-          onClick: () => widget.validate(true),
-        )
+            radius: 20.0,
+            buttonBorderColor: Hexcolor('#94D9D4').withOpacity(0.7),
+            buttonColor: Hexcolor('#94D9D4'),
+            buttonText: 'Continuar',
+            onClick: () {
+              asignarPuntaje(1);
+              widget.validate(true);
+            })
     ]));
   }
 
@@ -96,6 +101,18 @@ class _EmparejamientoState extends State<Emparejamiento> {
     } else {
       return Colors.white;
     }
+  }
+
+  asignarPuntaje(answer) {
+    bool correcto = answer == 0 ? false : true;
+
+    UserProvider provider = Provider.of<UserProvider>(context, listen: false);
+    int puntajeActual = provider.puntaje;
+    int _puntajePregunta = correcto
+        ? widget.pregunta.costos[0].puntosAcierto
+        : widget.pregunta.costos[0].puntosFracaso;
+    puntajeActual = _puntajePregunta + puntajeActual;
+    provider.puntaje = puntajeActual >= 0 ? puntajeActual : 0;
   }
 
   onSelectItem(_Item _item) {
@@ -129,6 +146,12 @@ class _EmparejamientoState extends State<Emparejamiento> {
           .toList();
 
       setState(() {});
+    } else {
+      intentosFallidos += 1;
+      if (intentosFallidos == 2) {
+        asignarPuntaje(0);
+        showDialogAnswer();
+      }
     }
     itemSelected1 = null;
     itemSelected2 = null;
@@ -141,6 +164,24 @@ class _EmparejamientoState extends State<Emparejamiento> {
         tagList.where((element) => element.pending == true).toList();
 
     return pendientes.length == 0;
+  }
+
+  showDialogAnswer() {
+    String mensaje = "La respuesta es incorrecta";
+
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              content: Text(mensaje),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Aceptar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            )).then((value) => widget.validate(false));
   }
 }
 

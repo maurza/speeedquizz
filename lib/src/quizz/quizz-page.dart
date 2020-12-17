@@ -55,7 +55,7 @@ class _QuizzPageState extends StateMVC<QuizzPage> {
             IconButton(
                 icon: Icon(Icons.help),
                 onPressed: () {
-                  controller.mostrarAyuda(context,
+                  controller.confirmarAyuda(context,
                       controller.preguntas[controller.preguntaActual].ayuda);
                 })
           ]),

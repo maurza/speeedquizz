@@ -145,5 +145,39 @@ class QuizzController extends ControllerMVC {
     );
   }
 
+  confirmarAyuda(BuildContext context, String ayuda) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: dimens.borderRadius(10.0),
+          content: Text('Si usas la ayuda obtendrás la mitad de los puntos'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'CANCELAR',
+                style: TextStyle(color: colores.purpuracards),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text(
+                'ACEPTAR',
+                style: TextStyle(color: colores.purpuracards),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                mostrarAyuda(context, ayuda);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   String pageName = 'Quizz';
 }
