@@ -51,7 +51,9 @@ class _LobbyPageState extends StateMVC<LobbyPage> {
                 child: Image.asset("assets/images/card1.png")),
           ),
           Text(
-            'Hola\n${user.nombre}!',
+            'Hola ${user.nombre}!\n' +
+                'Puntaje Actual: ' +
+                user.puntuacion.toString(),
             style: styles.largeBold(context),
           ),
           Expanded(

@@ -47,7 +47,7 @@ class QuizzController extends ControllerMVC {
             .opcionesCorrectas);
       } */
 
-      List response = await QuizzService().obtenerQuizz();
+      List response = await QuizzService().obtenerQuizz(this.type);
       for (var item in response) {
         Pregunta pregunta = Pregunta.fromJson(item);
 
@@ -106,6 +106,7 @@ class QuizzController extends ControllerMVC {
       'Content-type': 'application/json',
       'Accept': 'application/json'
     };
+
     //body
     final puntNuevo = {"puntaje": puntaje};
     final msg = jsonEncode(puntNuevo);
@@ -152,7 +153,8 @@ class QuizzController extends ControllerMVC {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: dimens.borderRadius(10.0),
-          content: Text('Si usas la ayuda obtendrás la mitad de los puntos'),
+          content: Text(
+              'El costo de la ayuda es de la mitad de los puntos que ganarías sin usarla, deseas usarla?'),
           actions: <Widget>[
             FlatButton(
               child: Text(
